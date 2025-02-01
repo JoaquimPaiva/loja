@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Bebê Artesanal</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">Bebê Artesanal</a>
+                <ul class="nav-links">
+                    <li><a href="#produtos">Gerenciar Produtos</a></li>
+                    <li><a href="#estoque">Gerenciar Estoque</a></li>
+                    <li><a href="#avaliacoes">Gerenciar Avaliações</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="#" id="logout-link">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-wrapper">
+        <div class="container">
+            <section id="produtos" class="admin-section">
+                <h2>Gerenciar Produtos</h2>
+                <div class="table-container">
+                    <table id="tabela-produtos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th>Categoria</th>
+                                <th>Estoque</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="adicionar-produto" class="admin-section">
+                <h2>Adicionar/Editar Produto</h2>
+                <form id="form-produto" class="form-grid">
+                    <input type="hidden" id="produto_id" name="produto_id">
+                    
+                    <div class="form-group">
+                        <label for="nome_produto">Nome:</label>
+                        <input type="text" id="nome_produto" name="nome_produto" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preco_produto">Preço:</label>
+                        <input type="number" id="preco_produto" name="preco_produto" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria_produto">Categoria:</label>
+                        <input type="text" id="categoria_produto" name="categoria_produto" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estoque_produto">Estoque:</label>
+                        <input type="number" id="estoque_produto" name="estoque_produto" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao_produto">Descrição:</label>
+                        <textarea id="descricao_produto" name="descricao_produto" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imagem_produto">URL da Imagem:</label>
+                        <input type="url" id="imagem_produto" name="imagem_produto" required>
+                    </div>
+
+                    <button type="submit" class="button button-primary">Salvar Produto</button>
+                </form>
+            </section>
+
+            <section id="estoque" class="admin-section">
+                <h2>Gerenciar Estoque</h2>
+                <div class="table-container">
+                    <table id="tabela-estoque">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome do Produto</th>
+                                <th>Estoque Atual</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="avaliacoes" class="admin-section">
+                <h2>Gerenciar Avaliações</h2>
+                <div class="table-container">
+                    <table id="tabela-avaliacoes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome do Produto</th>
+                                <th>Número de Avaliações</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal de Avaliações -->
+    <div id="modal-avaliacoes" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Avaliações do Produto</h2>
+            <div id="avaliacoes-content"></div>
+        </div>
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script type="module" src="config.js"></script>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
+

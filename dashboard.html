@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Bebê Artesanal</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">Bebê Artesanal</a>
+                <ul class="nav-links">
+                    <li><a href="admin.html">Gerenciar Produtos</a></li>
+                    <li><a href="#" id="logout-link">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-wrapper">
+        <div class="container">
+            <h1>Dashboard</h1>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total de Produtos</h3>
+                    <p id="total-produtos">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Valor Total de Produtos</h3>
+                    <p id="valor-total-produtos">R$ 0,00</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total de Pedidos</h3>
+                    <p id="total-pedidos">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Faturamento Total</h3>
+                    <p id="valor-total-vendas">R$ 0,00</p>
+                </div>
+            </div>
+
+            <!-- Seção de Produtos Mais Vendidos -->
+            <div class="table-container">
+                <h2 class="section-title">Produtos Mais Vendidos</h2>
+                <table id="tabela-mais-vendidos">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Valor Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <h2>Gráfico de Vendas</h2>
+                <div id="grafico-vendas" class="bar-chart"></div>
+            </div>
+
+            <div class="table-container">
+                <h2>Pedidos Recentes</h2>
+                <table id="tabela-pedidos-recentes">
+                    <thead>
+                        <tr>
+                            <th>ID do Pedido</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Data</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para detalhes do pedido -->
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="order-details-content"></div>
+        </div>
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script type="module" src="config.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
+

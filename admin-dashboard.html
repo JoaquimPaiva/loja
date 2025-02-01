@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrativo - Bebê Artesanal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ff9999;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background-color: #ffcccc;
+            padding: 0.5rem;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #ff6666;
+            margin-bottom: 1rem;
+        }
+
+        #grafico-vendas {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        #adicionar-produto {
+            margin-top: 1rem;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        form button {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #ff4d4d;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Bebê Artesanal</h1>
+        <p>Dashboard Administrativo</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#vendas">Vendas</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#adicionar-produto">Adicionar Produto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="vendas">
+            <h2>Relatório de Vendas</h2>
+            <canvas id="grafico-vendas"></canvas>
+        </section>
+
+        <section id="produtos">
+            <h2>Lista de Produtos</h2>
+            <table id="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Os produtos serão adicionados dinamicamente via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="adicionar-produto">
+            <h2>Adicionar Novo Produto</h2>
+            <form id="form-produto">
+                <label for="nome-produto">Nome:</label>
+                <input type="text" id="nome-produto" name="nome-produto" required>
+
+                <label for="preco-produto">Preço:</label>
+                <input type="number" id="preco-produto" name="preco-produto" step="0.01" required>
+
+                <label for="imagem-produto">URL da Imagem:</label>
+                <input type="url" id="imagem-produto" name="imagem-produto" required>
+
+                <button type="submit">Adicionar Produto</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Bebê Artesanal. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Dados de exemplo para o gráfico de vendas
+        const dadosVendas = {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+            datasets: [{
+                label: 'Vendas Mensais',
+                data: [1200, 1900, 3000, 5000, 2000, 3000],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Configuração do gráfico de vendas
+        const ctx = document.getElementById('grafico-vendas').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: dadosVendas,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Dados dos produtos (simulando um banco de dados)
+        let produtos = [
+            { id: 1, nome: "Manta de Tricô", preco: 89.90, imagem: "https://via.placeholder.com/150" },
+            { id: 2, nome: "Ursinho de Pelúcia", preco: 59.90, imagem: "https://via.placeholder.com/150" },
+            { id: 3, nome: "Kit Sapatinhos", preco: 49.90, imagem: "https://via.placeholder.com/150" },
+            { id: 4, nome: "Móbile de Feltro", preco: 79.90, imagem: "https://via.placeholder.com/150" }
+        ];
+
+        // Função para exibir os produtos na tabela
+        function exibirProdutos() {
+            const tabelaProdutos = document.getElementById("tabela-produtos").getElementsByTagName('tbody')[0];
+            tabelaProdutos.innerHTML = "";
+
+            produtos.forEach(produto => {
+                const row = tabelaProdutos.insertRow();
+                row.innerHTML = `
+                    <td>${produto.id}</td>
+                    <td>${produto.nome}</td>
+                    <td>R$ ${produto.preco.toFixed(2)}</td>
+                    <td>
+                        <button onclick="editarProduto(${produto.id})">Editar</button>
+                        <button onclick="excluirProduto(${produto.id})">Excluir</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Função para adicionar um novo produto
+        document.getElementById("form-produto").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const nome = document.getElementById("nome-produto").value;
+            const preco = parseFloat(document.getElementById("preco-produto").value);
+            const imagem = document.getElementById("imagem-produto").value;
+
+            const novoProduto = {
+                id: produtos.length + 1,
+                nome: nome,
+                preco: preco,
+                imagem: imagem
+            };
+
+            produtos.push(novoProduto);
+            exibirProdutos();
+            this.reset();
+        });
+
+        // Função para editar um produto (simulada)
+        function editarProduto(id) {
+            alert(`Editar produto com ID ${id}`);
+            // Implementar lógica de edição
+        }
+
+        // Função para excluir um produto
+        function excluirProduto(id) {
+            produtos = produtos.filter(produto => produto.id !== id);
+            exibirProdutos();
+        }
+
+        // Exibir os produtos ao carregar a página
+        window.onload = exibirProdutos;
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,212 @@
+@import url("styles-base.css");
+
+.admin-wrapper {
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: var(--secondary);
+}
+
+.admin-section {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--card-shadow);
+}
+
+.admin-section h2 {
+  color: var(--primary);
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--secondary);
+}
+
+th {
+  background-color: var(--primary-light);
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tr:hover {
+  background-color: var(--secondary);
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--text-light);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.feedback {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.feedback.success {
+  background-color: var(--success);
+  color: white;
+}
+
+.feedback.error {
+  background-color: var(--danger);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .admin-section {
+    padding: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+.avaliacoes-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.avaliacao {
+  background-color: var(--secondary);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.avaliacao p {
+  margin: 0.5rem 0;
+}
+
+.avaliacao button {
+  margin-top: 0.5rem;
+}
+
+#tabela-produtos td:nth-child(6) {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#adicionar-produto {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+}
+
+.close {
+  color: var(--text-light);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--text);
+}
+
