@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
 
+// Middleware compatível com Vercel Edge
 export function middleware(request) {
-  // Sem crypto.randomUUID, gera um nonce simples
+  // Nonce simples compatível com Edge Runtime
   const nonce = Math.random().toString(36).substring(2, 15)
 
+  // Content Security Policy (CSP)
   const csp = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' https://www.gstatic.com 'unsafe-inline';
@@ -18,6 +20,7 @@ export function middleware(request) {
     upgrade-insecure-requests;
   `.replace(/\s+/g, " ").trim()
 
+  // Cria a resposta com os headers CSP e x-nonce
   const response = NextResponse.next()
   response.headers.set("Content-Security-Policy", csp)
   response.headers.set("x-nonce", nonce)
@@ -25,6 +28,7 @@ export function middleware(request) {
   return response
 }
 
+// Aplica o middleware a todas as rotas exceto API, static e image
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
