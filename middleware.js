@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server"
 
 export function middleware(request) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64")
-  const cspHeader = `
+  // Sem crypto.randomUUID, gera um nonce simples
+  const nonce = Math.random().toString(36).substring(2, 15)
+
+  const csp = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' https://www.gstatic.com 'unsafe-inline';
     style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com 'unsafe-inline';
@@ -14,42 +16,14 @@ export function middleware(request) {
     base-uri 'self';
     form-action 'self';
     upgrade-insecure-requests;
-  `
-  const contentSecurityPolicyHeaderValue = cspHeader.replace(/\s{2,}/g, " ").trim()
+  `.replace(/\s+/g, " ").trim()
 
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set("x-nonce", nonce)
-
-  requestHeaders.set("Content-Security-Policy", contentSecurityPolicyHeaderValue)
-
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  })
-  response.headers.set("Content-Security-Policy", contentSecurityPolicyHeaderValue)
+  const response = NextResponse.next()
+  response.headers.set("Content-Security-Policy", csp)
+  response.headers.set("x-nonce", nonce)
 
   return response
 }
-
-// export const config = {
-//  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-/*    {
-      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
-    },
-  ],
-}*/
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
