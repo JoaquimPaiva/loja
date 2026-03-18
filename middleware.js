@@ -1,9 +1,15 @@
-import { NextResponse } from "next/server"
+// middleware.js
 
-// Middleware compatível com Vercel Edge
+// Força o runtime para Node.js (não Edge)
+export const runtime = "nodejs"
+
+import { NextResponse } from "next/server"
+import crypto from "crypto"
+
+// Middleware
 export function middleware(request) {
-  // Nonce simples compatível com Edge Runtime
-  const nonce = Math.random().toString(36).substring(2, 15)
+  // Gera um nonce seguro
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64")
 
   // Content Security Policy (CSP)
   const csp = `
@@ -20,7 +26,7 @@ export function middleware(request) {
     upgrade-insecure-requests;
   `.replace(/\s+/g, " ").trim()
 
-  // Cria a resposta com os headers CSP e x-nonce
+  // Cria a resposta e adiciona os headers
   const response = NextResponse.next()
   response.headers.set("Content-Security-Policy", csp)
   response.headers.set("x-nonce", nonce)
@@ -28,7 +34,7 @@ export function middleware(request) {
   return response
 }
 
-// Aplica o middleware a todas as rotas exceto API, static e image
+// Configuração de rotas que o middleware vai afetar
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
